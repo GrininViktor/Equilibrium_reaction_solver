@@ -18,13 +18,18 @@ N0 = np.array([1,0.1,0.1,1,0.1,1,0.1])
 
 def test_a(N0, V, reactionDepth, C):
 	a = 1
+
+
+
+
 	N = N0 + V.dot(reactionDepth)
+	print N
 	dN = V.dot(C)
 	for i in range(len(N)):
 		if (N[i] + dN[i] < 0):
 			if (abs(N[i]/dN[i]) < a):
-				a = abs(N[i]/dN[i]) - 0.01
-	return a
+				a = abs(N[i]/dN[i]) 
+	return 0.99*a
 
 def function_F(K, V, N0, reactionDepth):
 	return np.log(K) - V.T.dot(np.log(N0 + V.dot(reactionDepth)))
@@ -41,7 +46,8 @@ def newtons_method(reactionDepth1, reactionDepth2, e):
 		reactionDepth2 = reactionDepth1 + a*C
 		if np.linalg.norm( reactionDepth2 - reactionDepth1) < e:
 			return reactionDepth2
-		reactionDepth1 = reactionDepth2 		
+		reactionDepth1 = reactionDepth2 
+		#print reactionDepth2		
 print(newtons_method(reactionDepth1, reactionDepth2, e))
 
 #My_Repository
